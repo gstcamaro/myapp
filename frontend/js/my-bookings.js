@@ -16,7 +16,7 @@ async function renderBookings() {
   // 5. Attach click listeners to each "Cancel" button that call
   //    handleCancelClick(bookingId)
 
-  const bookings = MOCK_BOOKINGS;
+  const bookings = await getBookings();
 
   if (bookings.length === 0) {
     container.innerHTML = "<p>You have no current bookings.</p>";
@@ -45,7 +45,7 @@ async function handleCancelClick(bookingId) {
   // TODO:
   // 1. Call deleteBooking(bookingId) from api.js
   // 2. Re-render the bookings list (call renderBookings() again)
-  MOCK_BOOKINGS = MOCK_BOOKINGS.filter((booking) => booking.id !== bookingId);
+  await deleteBooking(bookingId);
   await renderBookings();
 }
 

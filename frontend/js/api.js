@@ -32,7 +32,7 @@ const MOCK_ROOMS = [
   },
 ];
 
-let MOCK_BOOKINGS = [];
+let MOCK_BOOKINGS = JSON.parse(sessionStorage.getItem("mockBookings") || "[]");
 
 // ---------- Rooms ----------
 
@@ -58,6 +58,7 @@ async function getRoomById(id) {
 
 async function getBookings() {
   // TODO (Stage 1): return MOCK_BOOKINGS
+  return MOCK_BOOKINGS;
   // TODO (Stage 3): fetch("/api/bookings") and return the parsed JSON
 }
 
@@ -67,6 +68,10 @@ async function createBooking(bookingData) {
 
   // TODO (Stage 1): push a new object (with a generated id) into
   //   MOCK_BOOKINGS and return it.
+  const booking = { ...bookingData, id: crypto.randomUUID() };
+  MOCK_BOOKINGS.push(booking);
+  sessionStorage.setItem("mockBookings", JSON.stringify(MOCK_BOOKINGS));
+  return booking;
   // TODO (Stage 3): fetch("/api/bookings", {
   //   method: "POST",
   //   headers: { "Content-Type": "application/json" },
@@ -76,5 +81,7 @@ async function createBooking(bookingData) {
 
 async function deleteBooking(id) {
   // TODO (Stage 1): remove the matching booking from MOCK_BOOKINGS.
+  MOCK_BOOKINGS = MOCK_BOOKINGS.filter((booking) => booking.id !== id);
+  sessionStorage.setItem("mockBookings", JSON.stringify(MOCK_BOOKINGS));
   // TODO (Stage 3): fetch(`/api/bookings/${id}`, { method: "DELETE" }).
 }

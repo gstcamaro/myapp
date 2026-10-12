@@ -17,7 +17,7 @@ async function populateRoomSelect() {
     .join("");
 }
 
-function handleBookingSubmit(event) {
+async function handleBookingSubmit(event) {
   event.preventDefault();
 
   const statusEl = document.getElementById("form-status");
@@ -40,7 +40,15 @@ function handleBookingSubmit(event) {
     purpose: document.getElementById("purpose").value,
   };
 
-  console.log(bookingData);
+  try {
+    await createBooking(bookingData);
+    statusEl.textContent = "Booking created successfully!";
+    statusEl.className = "status-message success";
+    event.target.reset();
+  } catch (error) {
+    statusEl.textContent = "Unable to create booking. Please try again.";
+    statusEl.className = "status-message error";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

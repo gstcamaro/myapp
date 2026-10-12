@@ -31,7 +31,16 @@ function handleBookingSubmit(event) {
   //    and consider resetting the form with event.target.reset()
   // 5. On failure, show an error message in statusEl (add class "error")
 
-  statusEl.textContent = "TODO: implement handleBookingSubmit()";
+  const bookingData = {
+    roomId: document.getElementById("room-select").value,
+    clubName: document.getElementById("club-name").value,
+    date: document.getElementById("date").value,
+    startTime: document.getElementById("start-time").value,
+    endTime: document.getElementById("end-time").value,
+    purpose: document.getElementById("purpose").value,
+  };
+
+  console.log(bookingData);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

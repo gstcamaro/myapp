@@ -11,6 +11,10 @@ async function populateRoomSelect() {
   // 1. Call getRooms() from api.js
   // 2. For each room, create an <option value="ROOM_ID">ROOM_NAME</option>
   // 3. Append the options to `select`
+  const rooms = await getRooms();
+  select.innerHTML += rooms
+    .map((room) => `<option value="${room.id}">${room.name}</option>`)
+    .join("");
 }
 
 function handleBookingSubmit(event) {

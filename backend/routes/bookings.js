@@ -42,7 +42,26 @@ router.post("/", (req, res) => {
   // 5. Add it to the array and writeData("bookings.json", updatedArray)
   // 6. res.status(201).json(newBooking)
 
-  res.status(501).json({ error: "Not implemented yet" });
+  const { roomId, clubName, date, startTime, endTime, purpose } = req.body;
+
+  if (!roomId || !clubName || !date || !startTime || !endTime || !purpose) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  const bookings = readData("bookings.json");
+  const newBooking = {
+    id: Date.now().toString(),
+    roomId,
+    clubName,
+    date,
+    startTime,
+    endTime,
+    purpose
+  };
+
+  bookings.push(newBooking);
+  writeData("bookings.json", bookings);
+  res.status(201).json(newBooking);
 });
 
 // DELETE /api/bookings/:id

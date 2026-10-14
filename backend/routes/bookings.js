@@ -73,7 +73,15 @@ router.delete("/:id", (req, res) => {
   // 4. Otherwise writeData("bookings.json", filteredArray)
   // 5. res.status(200).json({ message: "Booking canceled" })
 
-  res.status(501).json({ error: "Not implemented yet" });
+  const bookings = readData("bookings.json");
+  const filteredBookings = bookings.filter(booking => booking.id !== req.params.id);
+
+  if (filteredBookings.length === bookings.length) {
+    return res.status(404).json({ error: "Booking not found" });
+  }
+
+  writeData("bookings.json", filteredBookings);
+  return res.status(200).json({ message: "Booking canceled" });
 });
 
 module.exports = router;

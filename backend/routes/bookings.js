@@ -26,7 +26,8 @@ router.get("/", (req, res) => {
   // 1. Read bookings.json using readData()
   // 2. Send it back with res.json(...)
 
-  res.status(501).json({ error: "Not implemented yet" });
+  const bookings = readData("bookings.json");
+  res.json(bookings);
 });
 
 // POST /api/bookings
